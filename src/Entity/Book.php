@@ -25,7 +25,7 @@ class Book
     /**
      * @ORM\Column(type="guid", nullable=true)
      */
-    private $author_id;
+    private $authorId;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -40,7 +40,7 @@ class Book
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $image_url;
+    private $imageUrl;
 
     public function getId(): ?int
     {
@@ -61,12 +61,12 @@ class Book
 
     public function getAuthorId(): ?string
     {
-        return $this->author_id;
+        return $this->authorId;
     }
 
     public function setAuthorId(?string $author_id): self
     {
-        $this->author_id = $author_id;
+        $this->authorId = $authorId;
 
         return $this;
     }
@@ -97,12 +97,12 @@ class Book
 
     public function getImageUrl(): ?string
     {
-        return $this->image_url;
+        return $this->imageUrl;
     }
 
     public function setImageUrl(?string $image_url): self
     {
-        $this->image_url = $image_url;
+        $this->imageUrl = imageUrl;
 
         return $this;
     }

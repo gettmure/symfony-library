@@ -31,7 +31,7 @@ class User
     /**
      * @ORM\Column(type="guid", nullable=true)
      */
-    private $book_id;
+    private $bookId;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -74,7 +74,7 @@ class User
 
     public function getBookId(): ?string
     {
-        return $this->book_id;
+        return $this->bookId;
     }
 
     public function setBookId(?string $book_id): self
