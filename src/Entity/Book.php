@@ -23,7 +23,7 @@ class Book
     private $name;
 
     /**
-     * @ORM\Column(type="guid", nullable=true)
+     * @ORM\Column(type="simple_array", nullable=true)
      */
     private $authorId;
 

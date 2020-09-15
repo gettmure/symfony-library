@@ -29,7 +29,7 @@ class User
     private $password;
 
     /**
-     * @ORM\Column(type="guid", nullable=true)
+     * @ORM\Column(type="simple_array", nullable=true)
      */
     private $bookId;
 
