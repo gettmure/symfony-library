@@ -102,7 +102,7 @@ class User {
     public function addBook(Book $book): self {
         if (!$this->books->contains($book)) {
             $this->books[] = $book;
-            $book->addAuthor($this);
+            $book->addAuthors($this);
         }
 
         return $this;
