@@ -1,11 +1,16 @@
 html {
     height: 100%;
-    font-family: "Comic Sans MS";
 }
 
 body {
     position: relative;
-    background: #ffffff;
+    background: #def4ff !important;
     min-height: 45rem;
     padding-bottom: 80px;
+}
+
+.card {
+    width: 18rem !important;
+    padding: 1px;
+    border: 1.5px black solid !important;
 }
