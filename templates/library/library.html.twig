@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Библиотека
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        {% for book in books %}
+            <div class="card">
+                <img src="{{ book.imageUrl }}" class="card-img-top book-img" alt="{{ book.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.name }} ({{ book.year }})</h5>
+                    <p class="card-text">
+                        {% for author in book.authors %}
+                            Авторы: {{ author.firstname }} {{ author.lastname }} ({{ author.username }})
+                        {% endfor %}
+                    </p>
+                    <a href="{{ path('show_book', {slug: book.name}) }}" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
