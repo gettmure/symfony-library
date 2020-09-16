@@ -7,10 +7,48 @@ body {
     background: #def4ff !important;
     min-height: 45rem;
     padding-bottom: 80px;
+    height: 100%;
 }
 
 .card {
     width: 18rem !important;
     padding: 1px;
-    border: 1.5px black solid !important;
+    border: 2px black solid !important;
+}
+
+.book-img {
+    width: inherit;
+    height: 15rem;
+}
+
+.book-img-large {
+    height: 15rem;
+    width: 12rem;
+}
+
+.book-container {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-info-container {
+    width: 500px;
+    height: 580px;
+}
+
+.description {
+    height: 300px;
+    width: inherit;
+    overflow: auto;
+    font-size: 13px;
 }

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Подробнее о книге "{{ book.name }}"
+{% endblock %}
+
+{% block body %}
+    <div class="book-container container-fluid">
+        <div class="book-info-container card text-center container-fluid">
+            <div class="card-header">
+                Описание книги
+            </div>
+            <div class="card-body book-info">
+                <h5 class="card-title">{{ book.name }}</h5>
+                <img class="book-img-large" src="{{ book.imageUrl }}" alt="{{ book.name }}">
+                <p class="card-text description">
+                    lorasda sd ASD AL:SKJD KASJD LKA d;AKJSD L:AKSJ DLKAJS:DL KA:SLKD JAL:SKJD
+                    :LAKSJD :LKJASKDemA SD:AJS DKJLASKJ D:LAKJSD :LKASJLDK JLA:KSJD L:AKJD:LK J:ALKSJD :LASKD:L KA:LSKD
+                    Jad as DAS D:OAISUD OASI{PDO IAS"POD "AOPISD"PO I
+                </p>
+            </div>
+            <div class="card-footer text-muted">
+                <span>Год публикации: {{ book.year }}</span>
+            </div>
+            <div class="card-footer text-muted">
+                <span>
+                    Авторы: <br>
+                    {% for author in book.authors %}
+                        {{ author.firstname }} {{ author.lastname }} <br>
+                    {% endfor %}
+                </span>
+            </div>
+        </div>
+        {# <div class="about-book"> #}
+        {# <span> #}
+        {# <strong> #}
+        {# Название: #}
+        {# </strong> #}
+        {# {{ book.name }} #}
+        {# </span> #}
+        {# <span> #}
+        {# <strong> #}
+        {# Название: #}
+        {# </strong> #}
+        {# {{ book.name }} #}
+        {# </span> #}
+        {# </div> #}
+    </div>
+{% endblock %}
