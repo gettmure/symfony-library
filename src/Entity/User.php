@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class User {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
      */
     private $id;
@@ -40,12 +40,11 @@ class User {
     private $lastname;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="author")
+     * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="authors")
      */
     private $books;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->books = new ArrayCollection();
     }
 
@@ -96,13 +95,11 @@ class User {
     /**
      * @return Collection|Book[]
      */
-    public function getBooks(): Collection
-    {
+    public function getBooks(): Collection {
         return $this->books;
     }
 
-    public function addBook(Book $book): self
-    {
+    public function addBook(Book $book): self {
         if (!$this->books->contains($book)) {
             $this->books[] = $book;
             $book->addAuthor($this);
@@ -111,8 +108,7 @@ class User {
         return $this;
     }
 
-    public function removeBook(Book $book): self
-    {
+    public function removeBook(Book $book): self {
         if ($this->books->contains($book)) {
             $this->books->removeElement($book);
             $book->removeAuthor($this);

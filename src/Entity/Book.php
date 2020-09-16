@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Book {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
      */
     private $id;
@@ -41,11 +41,10 @@ class Book {
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="books")
      */
-    private $author;
+    private $authors;
 
-    public function __construct()
-    {
-        $this->author = new ArrayCollection();
+    public function __construct() {
+        $this->authors = new ArrayCollection();
     }
 
     public function getId(): ?string {
@@ -87,7 +86,7 @@ class Book {
     }
 
     public function setImageUrl(?string $image_url): self {
-        $this->imageUrl = imageUrl;
+        $this->imageUrl = $image_url;
 
         return $this;
     }
@@ -95,24 +94,21 @@ class Book {
     /**
      * @return Collection|User[]
      */
-    public function getAuthor(): Collection
-    {
-        return $this->author;
+    public function getAuthors(): Collection {
+        return $this->authors;
     }
 
-    public function addAuthor(User $author): self
-    {
-        if (!$this->author->contains($author)) {
-            $this->author[] = $author;
+    public function addAuthors(User $authors): self {
+        if (!$this->authors->contains($authors)) {
+            $this->authors[] = $authors;
         }
 
         return $this;
     }
 
-    public function removeAuthor(User $author): self
-    {
-        if ($this->author->contains($author)) {
-            $this->author->removeElement($author);
+    public function removeAuthors(User $authors): self {
+        if ($this->authors->contains($authors)) {
+            $this->authors->removeElement($authors);
         }
 
         return $this;

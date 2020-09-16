@@ -16,27 +16,23 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LibraryController extends AbstractController {
-//    private function getBooksArray(BookRepository $books, UserRepository $authors) {
-//        foreach ($books as $book) {
-//            $book->
-//        }
-//    }
 
     /**
-     * @Route("/")
+     * @Route("/", name="library_show")
      * @param EntityManagerInterface $entityManager
+     * @param BookRepository $bookRepository
      * @return Response
      */
-    public function showLibrary(EntityManagerInterface $entityManager) {
-        $booksRepository = $entityManager->getRepository(Book::class);
-        $usersRepository = $entityManager->getRepository(User::class);
-
-        $books = $booksRepository->findAll();
-        foreach ($books as $book) {
-            $authors = $usersRepository->findBy(
-                ['bookId' => $book->getId()],
-            );
-        }
+    public function showLibrary(EntityManagerInterface $entityManager, BookRepository $bookRepository) {
+        $books = $bookRepository->findAll();
+//        $book = new Book();
+//        $book->setDescription('Пособие по доте 2.');
+//        $book->setYear(2020);
+//        $book->setDescription('Пособие по доте 2.');
+//        $book->setName('Как убить негра.');
+//        $book->setImageUrl('https://cdn1.ozone.ru/multimedia/wc1200/1037906935.jpg');
+//        $entityManager->persist($book);
+//        $entityManager->flush();
         dump($books);
         return $this->render('library/library.html.twig', [
             'books' => $books,
