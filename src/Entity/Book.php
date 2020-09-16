@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,11 +24,6 @@ class Book {
     private $name;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $authorId;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
@@ -41,6 +38,16 @@ class Book {
      */
     private $imageUrl;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="books")
+     */
+    private $author;
+
+    public function __construct()
+    {
+        $this->author = new ArrayCollection();
+    }
+
     public function getId(): ?string {
         return $this->id;
     }
@@ -51,16 +58,6 @@ class Book {
 
     public function setName(string $name): self {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getAuthorId(): ?string {
-        return $this->authorId;
-    }
-
-    public function setAuthorId(?string $author_id): self {
-        $this->authorId = $authorId;
 
         return $this;
     }
@@ -91,6 +88,32 @@ class Book {
 
     public function setImageUrl(?string $image_url): self {
         $this->imageUrl = imageUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getAuthor(): Collection
+    {
+        return $this->author;
+    }
+
+    public function addAuthor(User $author): self
+    {
+        if (!$this->author->contains($author)) {
+            $this->author[] = $author;
+        }
+
+        return $this;
+    }
+
+    public function removeAuthor(User $author): self
+    {
+        if ($this->author->contains($author)) {
+            $this->author->removeElement($author);
+        }
 
         return $this;
     }

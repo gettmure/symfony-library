@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,11 +30,6 @@ class User {
     private $password;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $bookId;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $firstname;
@@ -41,6 +38,16 @@ class User {
      * @ORM\Column(type="string", length=255)
      */
     private $lastname;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="author")
+     */
+    private $books;
+
+    public function __construct()
+    {
+        $this->books = new ArrayCollection();
+    }
 
     public function getId(): ?string {
         return $this->id;
@@ -66,16 +73,6 @@ class User {
         return $this;
     }
 
-    public function getBookId(): ?string {
-        return $this->bookId;
-    }
-
-    public function setBookId(?string $book_id): self {
-        $this->book_id = $book_id;
-
-        return $this;
-    }
-
     public function getFirstname(): ?string {
         return $this->firstname;
     }
@@ -92,6 +89,34 @@ class User {
 
     public function setLastname(string $lastname): self {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Book[]
+     */
+    public function getBooks(): Collection
+    {
+        return $this->books;
+    }
+
+    public function addBook(Book $book): self
+    {
+        if (!$this->books->contains($book)) {
+            $this->books[] = $book;
+            $book->addAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBook(Book $book): self
+    {
+        if ($this->books->contains($book)) {
+            $this->books->removeElement($book);
+            $book->removeAuthor($this);
+        }
 
         return $this;
     }
