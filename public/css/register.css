@@ -1,0 +1,16 @@
+.registration_form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 98%;
+}
+
+input {
+    margin: 0.5rem;
+}
