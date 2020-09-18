@@ -18,31 +18,29 @@ use Symfony\Component\Routing\Annotation\Route;
 class LibraryController extends AbstractController {
 
     /**
-     * @Route("/", name="library_show")
-     * @param EntityManagerInterface $entityManager
+     * @Route("/", name="show_library")
      * @param BookRepository $bookRepository
      * @return Response
      */
-    public function showLibrary(EntityManagerInterface $entityManager, BookRepository $bookRepository) {
+    public function showLibrary(BookRepository $bookRepository) {
         $books = $bookRepository->findAll();
-//        $book = new Book();
-//        $book->setDescription('Пособие по доте 2.');
-//        $book->setYear(2020);
-//        $book->setDescription('Пособие по доте 2.');
-//        $book->setName('Как убить негра.');
-//        $book->setImageUrl('https://cdn1.ozone.ru/multimedia/wc1200/1037906935.jpg');
-//        $entityManager->persist($book);
-//        $entityManager->flush();
-        dump($books);
         return $this->render('library/library.html.twig', [
             'books' => $books,
         ]);
     }
 
     /**
-     * @Route("/library/{slug}")
+     * @Route("/book/{slug}", name="show_book")
+     * @param string $slug
+     * @param BookRepository $bookRepository
+     * @return Response
      */
-    public function showBook($slug) {
-        return $this->render('library/book/book.html.twig');
+    public function showBook(string $slug, BookRepository $bookRepository) {
+        $book = $bookRepository->findOneBy(
+            ['name' => $slug],
+        );
+        return $this->render('library/book/book.html.twig', [
+            'book' => $book,
+        ]);
     }
 }
