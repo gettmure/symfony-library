@@ -3,20 +3,30 @@
 
 namespace App\Admin;
 
+use App\Entity\Book;
 use App\Entity\User;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 
 final class BookAdmin extends AbstractAdmin {
+
+    public function toString($object) {
+        return $object instanceof Book
+            ? $object->getName()
+            : 'Book';
+    }
+
     /**
      * @param FormMapper $formMapper
      */
+
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
             ->with('Описание книги')
@@ -37,16 +47,22 @@ final class BookAdmin extends AbstractAdmin {
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
             ->add('name')
+            ->add('authors', null, [], EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'username',
+            ])
             ->add('year')
-            ->add('description')
-            ->add('imageUrl');
+            ->add('description');
     }
 
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
             ->addIdentifier('name')
-            ->addIdentifier('year')
-            ->addIdentifier('description')
-            ->addIdentifier('imageUrl');
+            ->add('authors', null, [
+                'associated_property' => 'username'
+            ])
+            ->add('year')
+            ->add('description')
+            ->add('imageUrl');
     }
 }
