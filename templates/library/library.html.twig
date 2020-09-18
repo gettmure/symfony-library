@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
+    <div class="library-container justify-content-around container-fluid">
         {% for book in books %}
             <div class="card">
                 <img src="{{ book.imageUrl }}" class="card-img-top book-img" alt="{{ book.name }}">
@@ -13,7 +13,7 @@
                     <h5 class="card-title">{{ book.name }} ({{ book.year }})</h5>
                     <p class="card-text">
                         {% for author in book.authors %}
-                            Авторы: {{ author.firstname }} {{ author.lastname }} ({{ author.username }})
+                            {{ author.firstname }} {{ author.lastname }} ({{ author.username }}); <br>
                         {% endfor %}
                     </p>
                     <a href="{{ path('show_book', {slug: book.name}) }}" class="btn btn-primary">Подробнее</a>
