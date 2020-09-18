@@ -48,8 +48,12 @@
             {# <a class="nav-link disabled" href="#">Disabled</a> #}
             {# </li> #}
         </ul>
-        <a class="btn btn-success m-2 my-2 my-sm-0" href="{{ path('app_login') }}">Логин</a>
-        <a class="btn btn-success my-sm-0" href="{{ path('app_register') }}">Регистрация</a>
+        {% if is_granted('ROLE_USER') %}
+            <a class="btn btn-success my-sm-0" href="{{ path('app_logout') }}">Выйти</a>
+        {% else %}
+            <a class="btn btn-success m-2 my-2 my-sm-0" href="{{ path('app_login') }}">Логин</a>
+            <a class="btn btn-success my-sm-0" href="{{ path('app_register') }}">Регистрация</a>
+        {% endif %}
     </div>
 </nav>
 {% block body %}
