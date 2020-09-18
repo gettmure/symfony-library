@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class LibraryController extends AbstractController {
 
     /**
-     * @Route("/", name="show_library")
+     * @Route("/", name="library")
      * @param BookRepository $bookRepository
      * @return Response
      */
