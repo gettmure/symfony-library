@@ -21,3 +21,7 @@ body {
     border: 2px black solid !important;
     margin: 10px;
 }
+
+.book-img {
+    height: 250px !important;
+}
