@@ -1,8 +1,11 @@
 sonata_admin:
-  title: 'Sonata Admin'
+  title: 'Админ-панель библиотеки'
   dashboard:
     blocks:
       - { type: sonata.admin.block.admin_list, position: center }
+  security:
+    handler: sonata.admin.security.handler.role
+    role_super_admin: ROLE_ADMIN
 
 sonata_block:
   blocks:

@@ -24,7 +24,6 @@ final class UserAdmin extends AbstractAdmin {
         $formMapper
             ->with('Информация о пользователе')
             ->add('username', TextType::class)
-            ->add('password', PasswordType::class)
             ->add('firstname', TextType::class)
             ->add('lastname', TextType::class)
             ->end();
@@ -50,7 +49,6 @@ final class UserAdmin extends AbstractAdmin {
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
             ->addIdentifier('username')
-            ->add('password')
             ->add('firstname')
             ->add('lastname')
             ->add('books', null, [
