@@ -1,0 +1,50 @@
+
+.book-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-info-container {
+    margin-top: 30px;
+    width: 800px !important;
+    height: 580px;
+}
+
+.book-img-large {
+    height: 250px;
+    width: 250px;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+    justify-content: center;
+    margin-top: 200px;
+    margin-left: 10px;
+    text-align: justify-all;
+}
+
+.book-info {
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+.description {
+    height: 300px;
+    width: inherit;
+    overflow: auto;
+    font-size: 13px;
+}
