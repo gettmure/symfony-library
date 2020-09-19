@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,7 +13,9 @@ class SecurityController extends AbstractController {
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response {
+    public function login(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager): Response {
+        $users = $entityManager->getRepository(User::class)->findAll();
+//        $users[12]->setPassword('123456');
         if ($this->getUser()) {
             return $this->redirectToRoute('library');
         }
@@ -28,8 +32,4 @@ class SecurityController extends AbstractController {
     public function logout() {
         throw new \Exception('Logged out');
     }
-
-//    public function adminDashboard() {
-//        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
-//    }
 }
