@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Подробнее о книге "{{ book.name }}"
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/book.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="book-container container-fluid">
+        <div class="book-info-container card text-center container-fluid">
+            <div class="card-header">
+                Описание книги
+            </div>
+            <div class="card-body book-info">
+                <div class="image-container">
+                    <img class="book-img-large" src="{{ book.imageUrl }}" alt="{{ book.name }}">
+                </div>
+                <div class="content-container">
+                    <h5 class="card-title">{{ book.name }}</h5>
+                    <p class="card-text description">
+                        {{ book.description }}
+                    </p>
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+                <span>Год публикации: {{ book.year }}</span>
+            </div>
+            <div class="card-footer text-muted">
+                <span>
+                    Авторы: <br>
+                    {% for author in book.authors %}
+                        {{ author.firstname }} {{ author.lastname }} <br>
+                    {% endfor %}
+                </span>
+            </div>
+        </div>
+        {# <div class="about-book"> #}
+        {# <span> #}
+        {# <strong> #}
+        {# Название: #}
+        {# </strong> #}
+        {# {{ book.name }} #}
+        {# </span> #}
+        {# <span> #}
+        {# <strong> #}
+        {# Название: #}
+        {# </strong> #}
+        {# {{ book.name }} #}
+        {# </span> #}
+        {# </div> #}
+    </div>
+{% endblock %}

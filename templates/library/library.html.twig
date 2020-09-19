@@ -16,7 +16,7 @@
                             {{ author.firstname }} {{ author.lastname }} ({{ author.username }}); <br>
                         {% endfor %}
                     </p>
-                    <a href="{{ path('show_book', {slug: book.name}) }}" class="btn btn-primary">Подробнее</a>
+                    <a href="{{ path('book_show', {name: book.name}) }}" class="btn btn-primary">Подробнее</a>
                 </div>
             </div>
         {% endfor %}
