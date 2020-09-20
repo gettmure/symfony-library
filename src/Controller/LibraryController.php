@@ -9,7 +9,6 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LibraryController extends AbstractController {
-    private function createFilteringForm($authors) {
+    private function createFilteringForm() {
         return $this->createFormBuilder()
             ->add('name', TextType::class, ['required' => false])
             ->add('year', IntegerType::class, ['required' => false])
@@ -31,6 +30,13 @@ class LibraryController extends AbstractController {
                         $author->getUsername(),
                         $author->getFirstname(),
                         $author->getLastname());
+                },
+                'query_builder' => function (EntityRepository $er) {
+                    $queryBuilder = $er->createQueryBuilder('user');
+                    return $queryBuilder
+                        ->innerJoin('user.books', 'books')
+                        ->where($queryBuilder->expr()->isNotNull('books'))
+                        ->orderBy('user.username', 'ASC');
                 },
                 'multiple' => true,
                 'required' => false,
@@ -48,8 +54,7 @@ class LibraryController extends AbstractController {
      * @return Response
      */
     public function showLibrary(BookRepository $bookRepository, UserRepository $userRepository, Request $request): Response {
-        $authors = $userRepository->getAuthors();
-        $form = $this->createFilteringForm($authors);
+        $form = $this->createFilteringForm();
         $books = $bookRepository->findAll();
         if ($request->query->get('form')) {
             $queryParameters = array_filter($request->query->get('form'));
@@ -61,7 +66,6 @@ class LibraryController extends AbstractController {
         return $this->render('library/library.html.twig', [
             'books' => $books,
             'form' => $form,
-            'authors' => $authors
         ]);
     }
 }
