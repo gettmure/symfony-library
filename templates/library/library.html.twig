@@ -4,7 +4,75 @@
     Библиотека
 {% endblock %}
 
+{% block filtering %}
+    <button class="btn btn-primary" onclick="showFiltering()">
+        Фильтрация
+    </button>
+{% endblock %}
+
 {% block body %}
+    <form action="{{ path('library') }}" id="filter-form" method="get">
+        {{ form_start(form) }}
+        <div class="input-group input-group-sm filter">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Название</span>
+            </div>
+            {{ form_widget(form.name, {
+                'attr': {
+                    'class': 'form-control',
+                    'name': 'name'
+                }}) }}
+        </div>
+        <div class="input-group input-group-sm filter">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Год</span>
+            </div>
+            {{ form_widget(form.year, {
+                'attr': {
+                    'class': 'form-control',
+                    'name': 'year',
+                    'type': 'number'
+                }}) }}
+        </div>
+        <div class="input-group input-group-sm filter">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">URL обложки</span>
+            </div>
+            {{ form_widget(form.image_url, {
+                'attr': {
+                    'class': 'form-control',
+                    'name': 'image_url',
+                    'type': 'text'
+                }}) }}
+        </div>
+        <div class="input-group input-group-sm filter">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Описание</span>
+            </div>
+            {{ form_widget(form.description, {
+                'attr': {
+                    'class': 'form-control',
+                    'name': 'description',
+                    'type': 'text'
+                }}) }}
+        </div>
+        <div class="input-group filter">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Автор</label>
+            </div>
+            {{ form_widget(form.authors, {
+                'attr': {
+                    'class':  'form-control',
+                }
+            }) }}
+        </div>
+        {{ form_row(form.submit, {
+            'label': 'Применить',
+            'attr': {
+                'class': 'btn btn-primary filter'
+            }}) }}
+        {{ form_end(form) }}
+    </form>
     <div class="library-container justify-content-around container-fluid">
         {% for book in books %}
             <div class="card">
@@ -13,7 +81,7 @@
                     <h5 class="card-title">{{ book.name }} ({{ book.year }})</h5>
                     <p class="card-text">
                         {% for author in book.authors %}
-                            {{ author.firstname }} {{ author.lastname }} ({{ author.username }}); <br>
+                            {{ author.firstname }} {{ author.lastname }}; <br>
                         {% endfor %}
                     </p>
                     <a href="{{ path('book_show', {name: book.name}) }}" class="btn btn-primary">Подробнее</a>
@@ -21,4 +89,8 @@
             </div>
         {% endfor %}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/show_filtering.js') }}"></script>
 {% endblock %}

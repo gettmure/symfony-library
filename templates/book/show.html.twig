@@ -13,7 +13,11 @@
     <div class="book-container container-fluid">
         <div class="book-info-container card text-center container-fluid">
             <div class="card-header">
-                Описание книги
+                <div style="position: absolute;">Описание книги</div>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn-primary my-sm-0"
+                       href="{{ path('book_edit', {'name': book.name}) }}" style="float: right">Редактировать</a>
+                {% endif %}
             </div>
             <div class="card-body book-info">
                 <div class="image-container">
@@ -38,19 +42,5 @@
                 </span>
             </div>
         </div>
-        {# <div class="about-book"> #}
-        {# <span> #}
-        {# <strong> #}
-        {# Название: #}
-        {# </strong> #}
-        {# {{ book.name }} #}
-        {# </span> #}
-        {# <span> #}
-        {# <strong> #}
-        {# Название: #}
-        {# </strong> #}
-        {# {{ book.name }} #}
-        {# </span> #}
-        {# </div> #}
     </div>
 {% endblock %}
