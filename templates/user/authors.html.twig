@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Авторы{% endblock %}
+
+{% block admin %}
+    <a class="btn btn-primary m-2" href="{{ path('user_new') }}">Добавить автора</a>
+{% endblock %}
+
+{% block body %}
+    <h1>Список авторов</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Никнейм</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Книги</th>
+            {% if is_granted('ROLE_ADMIN') %}
+                <th>Действия</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>
+                    {% for book in user.books %}
+                        {{ book.name }} <br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="btn btn-primary"
+                           href="{{ path('user_edit', {'username': user.username}) }}">Изменить</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

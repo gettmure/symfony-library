@@ -25,10 +25,12 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            {% block filtering %}
-            {% endblock %}
-        </ul>
+        <div class="navbar-nav mr-auto">
+            {% block options %}{% endblock %}
+            {% if is_granted('ROLE_ADMIN') %}
+                {% block admin %}{% endblock %}
+            {% endif %}
+        </div>
         {% if is_granted('ROLE_USER') %}
             <a class="btn btn-danger m-2 my-sm-0" href="{{ path('app_logout') }}">Выйти</a>
             {% if is_granted('ROLE_ADMIN') %}

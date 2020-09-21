@@ -4,10 +4,15 @@
     Библиотека
 {% endblock %}
 
-{% block filtering %}
-    <button class="btn btn-primary" onclick="showFiltering()">
+{% block options %}
+    <a class="btn m-2 btn-primary" href="{{ path('authors') }}">Список авторов</a>
+    <button class="btn m-2 btn-primary" onclick="showFiltering()">
         Фильтрация
     </button>
+{% endblock %}
+
+{% block admin %}
+    <a class="btn m-2 btn-primary" href="{{ path('book_new') }}">Добавить книгу</a>
 {% endblock %}
 
 {% block body %}

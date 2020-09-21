@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+<div class="buttons-container">
+    <button class="btn btn-primary">{{ button_label|default('Сохранить') }}</button>
+    <a class="btn form-btn btn-secondary" href="{{ path('authors') }}">Назад</a>
+</div>
+{{ form_end(form) }}

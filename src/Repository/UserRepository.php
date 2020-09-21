@@ -34,4 +34,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             dump($error);
         }
     }
+
+    public function findAuthors() {
+        $queryBuilder = $this->createQueryBuilder('user');
+        return $queryBuilder
+            ->innerJoin('user.books', 'books')
+            ->where($queryBuilder->expr()->isNotNull('books'))
+            ->orderBy('user.username', 'ASC')
+            ->getQuery()
+            ->execute();
+    }
 }

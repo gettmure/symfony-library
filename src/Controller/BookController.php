@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/book")
- * @IsGranted("ROLE_ADMIN")
  */
 class BookController extends AbstractController {
 
@@ -55,6 +54,7 @@ class BookController extends AbstractController {
 
     /**
      * @Route("/{name}/edit", name="book_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @param Book $book
      * @return Response
@@ -79,6 +79,7 @@ class BookController extends AbstractController {
 
     /**
      * @Route("/{name}/delete", name="book_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @param Book $book
      * @return Response
