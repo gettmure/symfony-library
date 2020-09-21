@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +29,7 @@ class UserController extends AbstractController {
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
      * @param Request $request
+     * @IsGranted("ROLE_ADMIN")
      * @return Response
      */
     public function new(Request $request): Response {
@@ -51,6 +53,7 @@ class UserController extends AbstractController {
      * @Route("/{username}/edit", name="user_edit", methods={"GET","POST"})
      * @param Request $request
      * @param User $user
+     * @IsGranted("ROLE_ADMIN")
      * @return Response
      */
     public function edit(Request $request, User $user): Response {
@@ -73,6 +76,7 @@ class UserController extends AbstractController {
      * @Route("/{username}", name="user_delete", methods={"DELETE"})
      * @param Request $request
      * @param User $user
+     * @IsGranted("ROLE_ADMIN")
      * @return Response
      */
     public function delete(Request $request, User $user): Response {

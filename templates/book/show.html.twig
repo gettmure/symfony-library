@@ -60,7 +60,11 @@
                         {% endif %}
                     </h5>
                     <p class="card-text description">
-                        {{ book.description }}
+                        {% if book.description is empty %}
+                            Описание отсутствует
+                        {% else %}
+                            {{ book.description }}
+                        {% endif %}
                     </p>
                     {% if is_granted('ROLE_ADMIN') %}
                         <button type="button" id="change-description"

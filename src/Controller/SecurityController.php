@@ -17,8 +17,6 @@ class SecurityController extends AbstractController {
      * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager): Response {
-        $users = $entityManager->getRepository(User::class)->findAll();
-//        $users[12]->setPassword('123456');
         if ($this->getUser()) {
             return $this->redirectToRoute('library');
         }

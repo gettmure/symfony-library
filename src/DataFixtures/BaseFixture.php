@@ -34,7 +34,6 @@ abstract class BaseFixture extends Fixture {
                 throw new \LogicException('Did you forget to return the entity object from your callback to BaseFixture::createMany()?');
             }
             $this->manager->persist($entity);
-            // store for usage later as groupName_#COUNT#
             $this->addReference(sprintf('%s_%d', $groupName, $i), $entity);
         }
     }

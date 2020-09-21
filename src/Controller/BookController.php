@@ -35,7 +35,7 @@ class BookController extends AbstractController {
             }
             return $form;
         } else {
-            dd('smth went wrong');
+            throw new \Exception('Ошибка создания формы!');
         }
     }
 
