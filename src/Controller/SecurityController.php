@@ -12,6 +12,9 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController {
     /**
      * @Route("/login", name="app_login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager): Response {
         $users = $entityManager->getRepository(User::class)->findAll();

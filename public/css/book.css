@@ -19,7 +19,6 @@
 .image-container {
     display: flex;
     flex-direction: column;
-    height: inherit;
     justify-content: center;
     align-items: center;
 }
@@ -40,7 +39,47 @@
 
 .description {
     height: 220px;
-    width: inherit;
+    width: 500px;
     overflow: auto;
     font-size: 17px;
+}
+
+.card-header {
+    height: 100px;
+}
+
+.card-footer {
+    height: 200px;
+    overflow: auto;
+}
+
+.card-body {
+    height: 700px !important;
+}
+
+#edit-book {
+    position: absolute;
+    right: 2rem;
+    top: 0.8rem;
+}
+
+#change-name {
+    position: absolute;
+    right: 2rem;
+    top: 6.3rem;
+}
+
+#change-image {
+    position: absolute;
+}
+
+#change-authors {
+    position: absolute;
+    right: 2rem;
+}
+
+#change-year {
+}
+
+#change-description {
 }

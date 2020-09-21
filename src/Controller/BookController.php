@@ -6,6 +6,7 @@ use App\Entity\Book;
 use App\Form\BookType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,17 +15,50 @@ use Symfony\Component\Routing\Annotation\Route;
  * @Route("/book")
  */
 class BookController extends AbstractController {
+    private function createInlineChangeForm(Book $book, $field) {
+        dump($field);
+        $formFactory = $this->get('form.factory');
+        $form = $formFactory
+            ->createNamed("form_$field", BookType::class, $book)
+            ->add("submit_$field", SubmitType::class);
+        $fields = [
+            'name',
+            'description',
+            'year',
+            'imageUrl',
+            'authors'
+        ];
+        if (($key = array_search($field, $fields)) !== false) {
+            unset($fields[$key]);
+            foreach ($fields as $field) {
+                $form->remove($field);
+            }
+            return $form;
+        } else {
+            dd('smth went wrong');
+        }
+    }
+
+    private function submitForm($form, Request $request, $book) {
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($book);
+            $entityManager->flush();
+            return $this->redirectToRoute('book_show', ['id' => $book->getId()]);
+        }
+    }
 
     /**
      * @Route("/new", name="book_new", methods={"GET","POST"})
      * @param Request $request
+     * @IsGranted("ROLE_ADMIN")
      * @return Response
      */
     public function new(Request $request): Response {
         $book = new Book();
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($book);
@@ -34,7 +68,6 @@ class BookController extends AbstractController {
                 'book' => $book,
             ]);
         }
-
         return $this->render('book/new.html.twig', [
             'book' => $book,
             'form' => $form->createView(),
@@ -42,13 +75,41 @@ class BookController extends AbstractController {
     }
 
     /**
-     * @Route("/{name}", name="book_show", methods={"GET"})
+     * @Route("/{id}", name="book_show", methods={"GET", "POST"})
      * @param Book $book
+     * @param Request $request
      * @return Response
      */
-    public function show(Book $book): Response {
+    public function show(Book $book, Request $request): Response {
+        $nameForm = $this->createInlineChangeForm($book, 'name');
+        $descriptionForm = $this->createInlineChangeForm($book, 'description');
+        $imageForm = $this->createInlineChangeForm($book, 'imageUrl');
+        $yearForm = $this->createInlineChangeForm($book, 'year');
+        $authorsForm = $this->createInlineChangeForm($book, 'authors');
+        if ($request->isMethod('POST')) {
+            if ($request->request->has('form_name')) {
+                $this->submitForm($nameForm, $request, $book);
+            }
+            if ($request->request->has('form_description')) {
+                $this->submitForm($descriptionForm, $request, $book);
+            }
+            if ($request->request->has('form_imageUrl')) {
+                $this->submitForm($imageForm, $request, $book);
+            }
+            if ($request->request->has('form_year')) {
+                $this->submitForm($yearForm, $request, $book);
+            }
+            if ($request->request->has('form_authors')) {
+                $this->submitForm($authorsForm, $request, $book);
+            }
+        }
         return $this->render('book/show.html.twig', [
             'book' => $book,
+            'nameForm' => $nameForm->createView(),
+            'descriptionForm' => $descriptionForm->createView(),
+            'imageForm' => $imageForm->createView(),
+            'yearForm' => $yearForm->createView(),
+            'authorsForm' => $authorsForm->createView()
         ]);
     }
 

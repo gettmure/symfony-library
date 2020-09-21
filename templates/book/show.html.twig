@@ -10,30 +10,76 @@
 {% endblock %}
 
 {% block body %}
+    {{ include('book/edit_inline/change_name.html.twig') }}
+    {{ include('book/edit_inline/change_description.html.twig') }}
+    {{ include('book/edit_inline/change_image.html.twig') }}
+    {{ include('book/edit_inline/change_year.html.twig') }}
+    {{ include('book/edit_inline/change_authors.html.twig') }}
     <div class="book-container container-fluid">
         <div class="book-info-container card text-center container-fluid">
             <div class="card-header">
-                <div style="position: absolute;">Описание книги</div>
+                <div>Описание книги</div>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a class="btn btn-primary my-sm-0"
+                    <a class="btn btn-primary my-sm-0" id="edit-book"
                        href="{{ path('book_edit', {'name': book.name}) }}" style="float: right">Редактировать</a>
                 {% endif %}
             </div>
             <div class="card-body book-info">
                 <div class="image-container">
                     <img class="book-img-large" src="{{ book.imageUrl }}" alt="{{ book.name }}">
+                    <span>
+                        Год публикации: {{ book.year }}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <button type="button" id="change-year"
+                                    class="btn btn-primary"
+                                    data-toggle="modal"
+                                    data-target="#change-year-modal">Изменить
+                            </button>
+                        {% endif %}
+
+                    </span>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <button type="button" id="change-image"
+                                class="btn btn-primary"
+                                data-toggle="modal"
+                                data-target="#change-image-modal">
+                            Изменить
+                        </button>
+                    {% endif %}
                 </div>
                 <div class="content-container">
-                    <h5 class="card-title">{{ book.name }}</h5>
+                    <h5 class="card-title">
+                        {{ book.name }}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <button type="button" id="change-name"
+                                    class="btn btn-primary"
+                                    data-toggle="modal"
+                                    data-target="#change-name-modal">
+                                Изменить
+                            </button>
+                        {% endif %}
+                    </h5>
                     <p class="card-text description">
                         {{ book.description }}
                     </p>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <button type="button" id="change-description"
+                                class="btn btn-primary"
+                                data-toggle="modal"
+                                data-target="#change-description-modal">
+                            Изменить
+                        </button>
+                    {% endif %}
                 </div>
             </div>
             <div class="card-footer text-muted">
-                <span>Год публикации: {{ book.year }}</span>
-            </div>
-            <div class="card-footer text-muted">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <button type="button" id="change-authors" class="btn btn-primary"
+                            data-toggle="modal"
+                            data-target="#change-authors-modal">
+                        Изменить
+                    </button>
+                {% endif %}
                 <span>
                     Авторы: <br>
                     {% for author in book.authors %}
@@ -43,4 +89,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/show_inline_editing.js') }}"></script>
 {% endblock %}

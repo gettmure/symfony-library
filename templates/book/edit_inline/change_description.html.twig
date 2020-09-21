@@ -1,0 +1,37 @@
+<div class="modal fade" id="change-description-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Редактировать</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Описание книги</span>
+                    </div>
+                    {{ form_start(descriptionForm) }}
+                    {{ form_widget(descriptionForm.description, {
+                        'attr': {
+                            'class': 'form-control',
+                        }
+                    }) }}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                {{ form_widget(descriptionForm.submit_description, {
+                    'label': 'Применить',
+                    'attr': {
+                        'class': 'btn btn-primary',
+                    }
+                }) }}
+                {{ form_row(descriptionForm._token) }}
+                {{ form_end(descriptionForm, {'render_rest': false}) }}
+            </div>
+        </div>
+    </div>
+</div>
