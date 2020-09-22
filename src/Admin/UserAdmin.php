@@ -26,6 +26,12 @@ final class UserAdmin extends AbstractAdmin {
             ->add('username', TextType::class)
             ->add('firstname', TextType::class)
             ->add('lastname', TextType::class)
+            ->add('password', PasswordType::class)
+            ->add('books', EntityType::class, [
+                'class' => Book::class,
+                'required' => false,
+                'multiple' => true,
+            ])
             ->end();
     }
 

@@ -64,9 +64,7 @@ class BookController extends AbstractController {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($book);
             $entityManager->flush();
-            return $this->render('book/show.html.twig', [
-                'book' => $book,
-            ]);
+            return $this->redirectToRoute('book_show', ['id' => $book->getId()]);
         }
         return $this->render('book/new.html.twig', [
             'book' => $book,
@@ -115,7 +113,7 @@ class BookController extends AbstractController {
     }
 
     /**
-     * @Route("/{name}/edit", name="book_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="book_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @param Book $book
@@ -127,9 +125,7 @@ class BookController extends AbstractController {
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->render('book/show.html.twig', [
-                'book' => $book,
-            ]);
+            return $this->redirectToRoute('book_show', ['id' => $book->getId()]);
         }
         return $this->render('book/edit.html.twig', [
             'book' => $book,
@@ -138,7 +134,7 @@ class BookController extends AbstractController {
     }
 
     /**
-     * @Route("/{name}/delete", name="book_delete", methods={"DELETE"})
+     * @Route("/{id}/delete", name="book_delete", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @param Book $book
