@@ -8,11 +8,9 @@ use Faker\Factory;
 use Faker\Generator;
 
 abstract class BaseFixture extends Fixture {
-    /** @var ObjectManager */
-    private $manager;
-    /** @var Generator */
-    protected $faker;
-    private $referencesIndex = [];
+    private ObjectManager $manager;
+    protected Generator $faker;
+    private array $referencesIndex = [];
 
     abstract protected function loadData(ObjectManager $manager);
 
@@ -41,7 +39,8 @@ abstract class BaseFixture extends Fixture {
     protected function getRandomReference(string $groupName) {
         if (!isset($this->referencesIndex[$groupName])) {
             $this->referencesIndex[$groupName] = [];
-            foreach ($this->referenceRepository->getReferences() as $key => $ref) {
+            foreach ($this->referenceRepository->getReferences
+            () as $key => $ref) {
                 if (strpos($key, $groupName . '_') === 0) {
                     $this->referencesIndex[$groupName][] = $key;
                 }

@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Book;
 use App\Form\BookType;
+use App\Repository\BookRepository;
+use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,7 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class BookController extends AbstractController {
     private function createInlineChangeForm(Book $book, $field) {
-        dump($field);
         $formFactory = $this->get('form.factory');
         $form = $formFactory
             ->createNamed("form_$field", BookType::class, $book)
@@ -35,7 +36,7 @@ class BookController extends AbstractController {
             }
             return $form;
         } else {
-            throw new \Exception('Ошибка создания формы!');
+            throw new Exception('Ошибка при создании формы!');
         }
     }
 
@@ -52,8 +53,8 @@ class BookController extends AbstractController {
     /**
      * @Route("/new", name="book_new", methods={"GET","POST"})
      * @param Request $request
-     * @IsGranted("ROLE_ADMIN")
      * @return Response
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response {
         $book = new Book();
@@ -63,7 +64,6 @@ class BookController extends AbstractController {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($book);
             $entityManager->flush();
-
             return $this->render('book/show.html.twig', [
                 'book' => $book,
             ]);
@@ -79,6 +79,7 @@ class BookController extends AbstractController {
      * @param Book $book
      * @param Request $request
      * @return Response
+     * @throws Exception
      */
     public function show(Book $book, Request $request): Response {
         $nameForm = $this->createInlineChangeForm($book, 'name');
@@ -123,7 +124,6 @@ class BookController extends AbstractController {
     public function edit(Request $request, Book $book): Response {
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -131,7 +131,6 @@ class BookController extends AbstractController {
                 'book' => $book,
             ]);
         }
-
         return $this->render('book/edit.html.twig', [
             'book' => $book,
             'form' => $form->createView(),
@@ -151,7 +150,6 @@ class BookController extends AbstractController {
             $entityManager->remove($book);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('library');
     }
 }

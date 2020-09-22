@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Запросы
+{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Книга</th>
+            <th scope="col">Количество авторов</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for book in books %}
+            <tr>
+                <td>{{ book.name }}</td>
+                <td>{{ book.count }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

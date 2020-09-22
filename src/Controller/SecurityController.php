@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,10 +11,9 @@ class SecurityController extends AbstractController {
     /**
      * @Route("/login", name="app_login")
      * @param AuthenticationUtils $authenticationUtils
-     * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager): Response {
+    public function login(AuthenticationUtils $authenticationUtils): Response {
         if ($this->getUser()) {
             return $this->redirectToRoute('library');
         }

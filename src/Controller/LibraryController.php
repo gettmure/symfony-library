@@ -5,7 +5,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\BookRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,11 +48,10 @@ class LibraryController extends AbstractController {
     /**
      * @Route("/", name="library", methods={"GET"})
      * @param BookRepository $bookRepository
-     * @param UserRepository $userRepository
      * @param Request $request
      * @return Response
      */
-    public function showLibrary(BookRepository $bookRepository, UserRepository $userRepository, Request $request): Response {
+    public function showLibrary(BookRepository $bookRepository, Request $request): Response {
         $form = $this->createFilteringForm();
         $books = $bookRepository->findAll();
         if ($request->query->get('form')) {
@@ -68,4 +66,6 @@ class LibraryController extends AbstractController {
             'form' => $form,
         ]);
     }
+
+
 }

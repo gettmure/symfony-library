@@ -20,22 +20,22 @@ class User implements UserInterface {
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
      */
-    private $id;
+    private ?string $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $username;
+    private ?string $username;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $firstname;
+    private ?string $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $lastname;
+    private ?string $lastname;
 
     /**
      * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="authors")
@@ -45,13 +45,13 @@ class User implements UserInterface {
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private string $password;
 
     public function __construct() {
         $this->books = new ArrayCollection();
@@ -62,8 +62,6 @@ class User implements UserInterface {
     }
 
     /**
-     * A visual identifier that represents this user.
-     *
      * @see UserInterface
      */
     public function getUsername(): ?string {

@@ -8,7 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixture extends BaseFixture {
-    private $passwordEncoder;
+    private UserPasswordEncoderInterface $passwordEncoder;
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder) {
         $this->passwordEncoder = $passwordEncoder;

@@ -64,22 +64,35 @@
 }
 
 #change-name {
+    display: none;
     position: absolute;
     right: 2rem;
     top: 6.3rem;
 }
 
 #change-image {
+    display: none;
     position: absolute;
 }
 
 #change-authors {
+    display: none;
     position: absolute;
     right: 2rem;
 }
 
 #change-year {
+    display: none;
+    position: absolute;
+    width: 200px;
 }
 
 #change-description {
+    display: none;
+    position: absolute;
+    width: 500px;
+}
+
+form {
+    width: 250px;
 }

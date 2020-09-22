@@ -22,6 +22,10 @@ body {
     margin: 10px;
 }
 
+.card-body {
+    height: 350px;
+}
+
 .book-img {
     height: 250px !important;
 }
@@ -39,4 +43,9 @@ body {
 .filter {
     margin: 10px;
     width: 500px !important;
+}
+
+.detailed-btn {
+    position: absolute;
+    bottom: 20px;
 }

@@ -9,6 +9,8 @@
     <button class="btn m-2 btn-primary" onclick="showFiltering()">
         Фильтрация
     </button>
+    <a class="btn m-2 btn-primary" href="{{ path('query_native') }}">Результаты нативного SQL</a>
+    <a class="btn m-2 btn-primary" href="{{ path('query_builder') }}">Результаты Doctrine ORM</a>
 {% endblock %}
 
 {% block admin %}
@@ -89,7 +91,7 @@
                             {{ author.firstname }} {{ author.lastname }}; <br>
                         {% endfor %}
                     </p>
-                    <a href="{{ path('book_show', {id: book.id}) }}" class="btn btn-primary">Подробнее</a>
+                    <a href="{{ path('book_show', {id: book.id}) }}" class="detailed-btn btn btn-primary">Подробнее</a>
                 </div>
             </div>
         {% endfor %}
