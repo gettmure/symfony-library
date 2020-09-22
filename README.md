@@ -1,24 +1,24 @@
 # Description
 This is test task for PHP backend developer vacancy written on Symfony 4.4.
 
-#Installation
+# Installation
 To run this project, you need to install [Composer](https://getcomposer.org/), 
 move to the root folder (symfony-library)
 and then run `composer install` in the terminal.
 
-#Run
+# Run
 To run the project, you can type in the terminal `symfony server:start`,
 if you have [symfony cli](https://github.com/symfony/cli) installed.
 
 But for more performance, use Apache with virtual host.
 
-#Making fake data for database
+# Making fake data for database
 Users: run `./bin/console doctrine:fixtures:load` in the terminal.
 
 Books and authors: clone [this generator](https://github.com/gettmure/php-database-generator), 
 move to its root directory (php-database-generator) and run `php src/main.php`;
 
-#SQL Query
+# SQL Query
 Return all books, that have >=2 authors.
 
 Report table:
@@ -28,7 +28,7 @@ Report table:
 |               |               |
 
 
-###Native SQL
+### Native SQL
 ```sql
 --You can test it in the app aswell.
 
@@ -42,7 +42,7 @@ ON books.id = b.book_id
 ORDER BY count ASC
 ```
 
-###Doctrine ORM SQL
+### Doctrine ORM SQL
 ```php
 --You can test it in the app aswell.
 
