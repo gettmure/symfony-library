@@ -46,6 +46,7 @@ final class UserAdmin extends AbstractAdmin {
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
+            ->add('email')
             ->add('username')
             ->add('firstname')
             ->add('lastname')
