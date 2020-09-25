@@ -29,7 +29,6 @@ class QueryController extends AbstractController {
      */
     public function showQueryBuilderResults(BookRepository $bookRepository): Response {
         $books = $bookRepository->findBooksByQueryBuilder();
-        dump($books);
         return $this->render('library/builder_query.html.twig', [
             'books' => $books,
         ]);
