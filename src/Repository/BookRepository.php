@@ -28,7 +28,6 @@ class BookRepository extends ServiceEntityRepository {
      * @return Book[]
      */
     public function filterBooksByParameters($parameters): array {
-        dump($parameters);
         $queryBuilder = $this
             ->createQueryBuilder('book');
         foreach ($parameters as $key => $value) {
@@ -41,6 +40,7 @@ class BookRepository extends ServiceEntityRepository {
                 $conditionState = ($key == 'year')
                     ? '='
                     : 'LIKE';
+                $key = $key == 'image_url' ? 'imageUrl' : $key;
                 $queryBuilder
                     ->andWhere("book.$key $conditionState :$key")
                     ->setParameter($key, $conditionState == '=' ? "$value" : "$value%");

@@ -17,27 +17,27 @@ class Book {
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
      */
-    private ?string $id;
+    private $id;
 
     /**
      * @ORM\Column(type="text", unique=true)
      */
-    private ?string $name;
+    private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private ?string $description;
+    private $description;
 
     /**
      * @ORM\Column(type="smallint")
      */
-    private ?int $year;
+    private $year;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="image_url", type="text", nullable=true)
      */
-    private ?string $imageUrl;
+    private $imageUrl;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="books")

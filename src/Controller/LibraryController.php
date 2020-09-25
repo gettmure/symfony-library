@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +21,7 @@ class LibraryController extends AbstractController {
         return $this->createFormBuilder()
             ->add('name', TextType::class, ['required' => false])
             ->add('year', IntegerType::class, ['required' => false])
-            ->add('image_url', TextType::class, ['required' => false])
+            ->add('image_url', UrlType::class, ['required' => false])
             ->add('description', TextType::class, ['required' => false])
             ->add('authors', EntityType::class, [
                 'class' => User::class,
