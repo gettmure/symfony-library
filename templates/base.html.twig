@@ -32,14 +32,13 @@
             {% endif %}
         </div>
         {% if is_granted('ROLE_USER') %}
-            <a class="btn btn-danger m-2 my-sm-0" href="{{ path('app_logout') }}">Выйти</a>
-            {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-primary my-sm-0" href="{{ path('sonata_admin_dashboard') }}">Админ-панель</a>
-            {% endif %}
+            <a class="btn btn-danger m-2 my-sm-0" href="{{ path('fos_user_security_logout') }}">Выйти</a>
         {% else %}
-            <a class="btn btn-success m-2 my-2 my-sm-0" href="{{ path('app_login') }}">Логин</a>
-            <a class="btn btn-success my-sm-0" href="{{ path('app_register') }}">Регистрация</a>
+            <a class="btn btn-success m-2 my-2 my-sm-0" href="{{ path('fos_user_security_login') }}">Логин</a>
+            <a class="btn btn-success my-sm-0" href="{{ path('fos_user_registration_register') }}">Регистрация</a>
         {% endif %}
+        <a class="btn btn-primary m-2 my-sm-0" href="{{ path('sonata_admin_dashboard') }}">Админ-панель</a>
+
     </div>
 </nav>
 {% block body %}

@@ -1,11 +1,14 @@
-.registration_form {
+form {
+    width: 400px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.register-form {
+.register-form-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 98%;
@@ -13,4 +16,13 @@
 
 input {
     margin: 0.5rem;
+    width: 200px;
+}
+
+label {
+    width: 150px;
+}
+
+.apply {
+    width: 370px;
 }

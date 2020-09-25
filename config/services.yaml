@@ -1,18 +1,10 @@
-# This file is the entry point to configure your own services.
-# Files in the packages/ subdirectory configure your dependencies.
-
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
 
 services:
-  # default configuration for services in *this* file
   _defaults:
-    autowire: true      # Automatically injects dependencies in your services.
-    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    autowire: true
+    autoconfigure: true
 
-  # makes classes in src/ available to be used as services
-  # this creates a service per class whose id is the fully-qualified class name
   App\:
     resource: '../src/'
     exclude:
@@ -21,11 +13,35 @@ services:
       - '../src/Kernel.php'
       - '../src/Tests/'
 
-  # controllers are imported separately to make sure services can be injected
-  # as action arguments even if you don't extend any base controller class
   App\Controller\:
     resource: '../src/Controller/'
     tags: [ 'controller.service_arguments' ]
+
+  app.form.registration:
+    class: App\Form\RegistrationFormType
+    tags:
+      - { name: form.type }
+
+  mailer:
+    alias: fos_user.mailer.noop
+    public: true
+
+  sonata.user.admin.user:
+    class: "%sonata.user.admin.user.class%"
+    arguments: [ ~, "%sonata.user.admin.user.entity%", "%sonata.user.admin.user.controller%" ]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: "%sonata.user.admin.groupname%", label_catalogue: "%sonata.user.admin.label_catalogue%", label: "users", icon: "<i class=\"fa fa-user\"></i>", show_in_dashboard: false }
+    calls:
+      - [ setUserManager, [ "@fos_user.user_manager" ] ]
+      - [ setTranslationDomain, [ "%sonata.user.admin.user.translation_domain%" ] ]
+
+  sonata.user.admin.group:
+    class: "%sonata.user.admin.group.class%"
+    arguments: [ ~, "%sonata.user.admin.group.entity%", "%sonata.user.admin.group.controller%" ]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: "%sonata.user.admin.groupname%", label_catalogue: "%sonata.user.admin.label_catalogue%", label: "groups", show_in_dashboard: false }
+    calls:
+      - [ setTranslationDomain, [ "%sonata.user.admin.group.translation_domain%" ] ]
 
   admin.book:
     class: App\Admin\BookAdmin
@@ -37,5 +53,3 @@ services:
     arguments: [ ~, App\Entity\User, ~ ]
     tags:
       - { name: sonata.admin, manager_type: orm, label: User }
-  # add more service definitions when explicit configuration is needed
-  # please note that last definitions always *replace* previous ones
